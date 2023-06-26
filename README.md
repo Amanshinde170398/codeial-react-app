@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## NOTES
+
+1. JSON.stringify(): Takes a JavaScript object and transforms it into a JSON string.
+2. JSON.parse(): Takes a JSON string and transforms it into a JavaScript object.
