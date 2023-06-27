@@ -2,7 +2,7 @@ import "../styles/App.css";
 import { getPosts } from "../api";
 import { useState, useEffect } from "react";
 import { Home } from "../pages";
-import { Loader } from "./";
+import { Loader, Navbar } from "./";
 
 function App() {
   const [posts, setPost] = useState([]);
@@ -25,6 +25,7 @@ function App() {
   }
   return (
     <div>
+      <Navbar />
       <Home posts={posts} />
     </div>
   );
