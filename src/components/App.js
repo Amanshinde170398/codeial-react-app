@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import { getPosts } from "../api";
 import { useState, setState } from "react";
+import { Home } from "../pages";
 
 function App() {
   const fetchPost = async () => {
@@ -10,11 +11,10 @@ function App() {
 
   useState(() => {
     fetchPost();
-    console.log("ok");
   }, []);
   return (
     <div>
-      <h1>Hello World</h1>
+      <Home />
     </div>
   );
 }
