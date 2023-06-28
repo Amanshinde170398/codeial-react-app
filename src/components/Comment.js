@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styles from "../styles/home.module.css";
 
 const Comment = ({ comments }) => {
@@ -22,4 +22,7 @@ const Comment = ({ comments }) => {
   );
 };
 
+Comment.propTypes = {
+  comments: PropTypes.array.isRequired,
+};
 export default Comment;
