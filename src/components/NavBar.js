@@ -4,13 +4,20 @@ const Navbar = () => {
     <div className={styles.nav}>
       <div className={styles.leftDiv}>
         <a href="/">
-          <img alt="" src=""></img>
+          <img
+            alt=""
+            src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
+          ></img>
         </a>
       </div>
       <div className={styles.rightNav}>
         <div className={styles.user}>
           <a href="/">
-            <img alt="" src="" className={styles.userDp}></img>
+            <img
+              alt="user dp"
+              src={process.env.PUBLIC_URL + "/man.png"}
+              className={styles.userDp}
+            ></img>
           </a>
           <span>Aman</span>
         </div>

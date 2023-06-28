@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "../styles/home.module.css";
+import { Comment } from "../components";
 
 const Home = ({ posts }) => {
   return (
@@ -98,18 +99,7 @@ const Home = ({ posts }) => {
             <div className={styles.postCommentBox}>
               <input placeholder="Start typing a comment" />
             </div>
-            <div className={styles.postCommentsList}>
-              <div className={styles.postCommentsItem}>
-                <div className={styles.postCommentHeader}>
-                  <span className={styles.postCommentAuthor}>sham sharma</span>
-                  <span className={styles.postCommentTime}>a minute ago</span>
-                  <span className={styles.postCommentLikes}>22</span>
-                </div>
-                <div className={styles.postCommentContent}>
-                  Nice post. Great!!!
-                </div>
-              </div>
-            </div>
+            <Comment comments={post.comments} />
           </div>
         </div>
       ))}
