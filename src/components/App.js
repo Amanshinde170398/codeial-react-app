@@ -1,8 +1,13 @@
 import "../styles/App.css";
 import { getPosts } from "../api";
 import { useState, useEffect } from "react";
-import { Home } from "../pages";
+import { Home, Login } from "../pages";
 import { Loader, Navbar } from "./";
+import { Routes, Route } from "react-router-dom";
+
+const AboutUs = () => {
+  return <h1>About us</h1>;
+};
 
 function App() {
   const [posts, setPost] = useState([]);
@@ -26,7 +31,10 @@ function App() {
   return (
     <div>
       <Navbar />
-      <Home posts={posts} />
+      <Routes>
+        <Route exact path="/" element={<Home posts={posts} />} />
+        <Route exact path="/login" Component={Login} />
+      </Routes>
     </div>
   );
 }
