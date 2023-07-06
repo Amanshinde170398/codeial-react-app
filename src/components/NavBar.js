@@ -4,12 +4,12 @@ const Navbar = () => {
   return (
     <div className={styles.nav}>
       <div className={styles.leftDiv}>
-        <a href="/">
+        <Link to="/">
           <img
             alt=""
             src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
           ></img>
-        </a>
+        </Link>
       </div>
       <div className={styles.rightNav}>
         <div className={styles.user}>

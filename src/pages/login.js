@@ -1,6 +1,7 @@
 import styles from "../styles/login.module.css";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { login } from "../api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,13 +10,24 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) {
+      console.log(true);
       toast.error("Please enter both email and password.", {
-        duration: 4000,
+        duration: 1000,
         position: "top-center",
       });
       return;
     }
     setLoggingIn(true);
+    const response = login(email, password);
+    if (response.success) {
+      console.log("ok");
+    } else {
+      toast.error("Invalid email/password", {
+        duration: 4000,
+        position: "top-center",
+      });
+    }
+    setLoggingIn(false);
   };
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>
@@ -25,7 +37,7 @@ const Login = () => {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.email)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className={styles.field}>
