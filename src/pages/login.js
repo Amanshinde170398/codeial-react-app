@@ -1,13 +1,17 @@
 import styles from "../styles/login.module.css";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { login } from "../api";
+import { useAuth } from "../hooks";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
-  const handleSubmit = (e) => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       console.log(true);
@@ -18,9 +22,10 @@ const Login = () => {
       return;
     }
     setLoggingIn(true);
-    const response = login(email, password);
+    const response = await auth.login(email, password);
     if (response.success) {
-      console.log("ok");
+      toast.success("Loged in successfuly");
+      navigate("/");
     } else {
       toast.error("Invalid email/password", {
         duration: 4000,
@@ -29,9 +34,10 @@ const Login = () => {
     }
     setLoggingIn(false);
   };
+
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>
-      <span className={styles.loginSignupHeader}></span>
+      <span className={styles.loginSignupHeader}>LogIn</span>
       <div className={styles.field}>
         <input
           type="email"

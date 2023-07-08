@@ -1,40 +1,22 @@
 import "../styles/App.css";
-import { getPosts } from "../api";
-import { useState, useEffect } from "react";
-import { Home, Login } from "../pages";
+import { Home, Login, SignUp } from "../pages";
 import { Loader, Navbar } from "./";
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-
-const AboutUs = () => {
-  return <h1>About us</h1>;
-};
+import { useAuth } from "../hooks";
 
 function App() {
-  const [posts, setPost] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchPost = async () => {
-    let resp = await getPosts();
-    if (resp.success) {
-      setPost(resp.data.posts);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchPost();
-  }, []);
-
-  if (loading) {
+  const auth = useAuth();
+  if (auth.loading) {
     return <Loader />;
   }
   return (
     <div>
       <Navbar />
       <Routes>
-        <Route exact path="/" element={<Home posts={posts} />} />
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/login" Component={Login} />
+        <Route exact path="/sign-up" Component={SignUp} />
       </Routes>
       <Toaster />
     </div>
