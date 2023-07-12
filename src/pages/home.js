@@ -3,10 +3,12 @@ import styles from "../styles/home.module.css";
 import { Comment, Loader } from "../components";
 import { getPosts } from "../api";
 import { useState, useEffect } from "react";
+import { useAuth } from "../hooks";
 
 const Home = () => {
   const [posts, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
+  const auth = useAuth();
 
   const fetchPost = async () => {
     let resp = await getPosts();
@@ -117,7 +119,7 @@ const Home = () => {
               </div>
             </div>
             <div className={styles.postCommentBox}>
-              <input placeholder="Start typing a comment" />
+              {auth.user && <input placeholder="Start typing a comment" />}
             </div>
             <Comment comments={post.comments} />
           </div>
