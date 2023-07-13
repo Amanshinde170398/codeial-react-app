@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { login as userLogin } from "../api";
+import { editProfile, login as userLogin } from "../api";
 import {
   storeItemInLocaStorage,
   removeItemFromLocalStorage,
@@ -8,6 +8,7 @@ import {
   getItemFromLocalStorage,
 } from "../utils";
 import jwt_decode from "jwt-decode";
+import toast from "react-hot-toast";
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -46,6 +47,29 @@ export const useProvideAuth = () => {
   const logout = () => {
     setUser(null);
     removeItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
+    toast.success("Logged out!", {
+      duration: 1000,
+      position: "top-center",
+    });
+  };
+
+  const updateUser = async (userId, name, password, confirmPassword) => {
+    const response = await editProfile(userId, name, password, confirmPassword);
+    if (response.success) {
+      setUser(response.data.user);
+      storeItemInLocaStorage(
+        LOCALSTORAGE_TOKEN_KEY,
+        response.data.token ? response.data.token : ""
+      );
+      return {
+        success: true,
+      };
+    } else {
+      return {
+        success: false,
+        message: response.message,
+      };
+    }
   };
 
   return {
@@ -53,5 +77,6 @@ export const useProvideAuth = () => {
     login,
     logout,
     loading,
+    updateUser,
   };
 };
