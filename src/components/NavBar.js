@@ -16,13 +16,13 @@ const Navbar = () => {
       <div className={styles.rightNav}>
         {auth.user && (
           <div className={styles.user}>
-            <a href="/">
+            <Link to="/settings">
               <img
                 alt="user dp"
                 src={process.env.PUBLIC_URL + "/man.png"}
                 className={styles.userDp}
               ></img>
-            </a>
+            </Link>
             <span>{auth.user.name}</span>
           </div>
         )}
