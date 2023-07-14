@@ -74,3 +74,11 @@ export const editProfile = (userId, name, password, confirmPassword) => {
     },
   });
 };
+
+export const getUserDetails = (userId) => {
+  return customFetch(API_URLS.userInfo(userId), { method: "GET" });
+};
+
+export const getFriendShips = () => {
+  return customFetch(API_URLS.friends(), { method: "GET" });
+};

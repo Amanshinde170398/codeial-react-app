@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { editProfile, login as userLogin } from "../api";
+import { getFriendShips, editProfile, login as userLogin } from "../api";
 import {
   storeItemInLocaStorage,
   removeItemFromLocalStorage,
@@ -30,11 +30,18 @@ export const useProvideAuth = () => {
   const login = async (email, password) => {
     const response = await userLogin(email, password);
     if (response.success) {
-      setUser(response.data.user);
       storeItemInLocaStorage(
         LOCALSTORAGE_TOKEN_KEY,
         response.data.token ? response.data.token : ""
       );
+      let friendships = [];
+      const resp = await getFriendShips();
+      if (resp.success) {
+        friendships = resp.data.friends;
+      } else {
+        friendships = [];
+      }
+      setUser({ ...response.data.user, friendships });
       return { success: true };
     } else {
       return {
