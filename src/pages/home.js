@@ -4,6 +4,7 @@ import { Comment, Loader } from "../components";
 import { getPosts } from "../api";
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPost] = useState([]);
@@ -93,7 +94,13 @@ const Home = () => {
                 </g>
               </svg>
               <div>
-                <span className={styles.postAuthor}>{post.user.name}</span>
+                <Link
+                  to={`/user/${post.user._id}`}
+                  state={post.user}
+                  className={styles.postAuthor}
+                >
+                  {post.user.name}
+                </Link>
                 <span className={styles.postTime}>a minute ago</span>
               </div>
             </div>

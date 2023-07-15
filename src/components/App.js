@@ -1,5 +1,5 @@
 import "../styles/App.css";
-import { Home, Login, SignUp, Settings } from "../pages";
+import { Home, Login, SignUp, Settings, UserProfile } from "../pages";
 import { Loader, Navbar } from "./";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -36,7 +36,16 @@ function App() {
           path="/settings"
           element={
             <PrivateRoute>
-              <Home />
+              <Settings />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/user/:userId"
+          element={
+            <PrivateRoute>
+              <UserProfile />
             </PrivateRoute>
           }
         />
