@@ -96,8 +96,9 @@ export const useProvideAuth = () => {
     } else {
       // remove friendship
       let friendships = user.friendships.filter(
-        (friend) => friend.to_user._id != friendship
+        (f) => f.to_user._id != friendship.to_user._id
       );
+      console.log(friendships);
       setUser({ ...user, friendships });
     }
   };
