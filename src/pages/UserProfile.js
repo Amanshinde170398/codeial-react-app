@@ -61,7 +61,10 @@ const UserProfile = () => {
         duration: 1000,
         position: "top-center",
       });
-      auth.updateUserFriendShip(false, userId);
+      let friendship = auth.user.friendships.filter(
+        (f) => f.to_user._id == userId
+      );
+      auth.updateUserFriendShip(false, friendship[0]);
     } else {
       toast.error(response.message, { duration: 1000, position: "top-center" });
     }
@@ -94,11 +97,19 @@ const UserProfile = () => {
 
       <div className={styles.btnGrp}>
         {checkIfUserIsAFriend() ? (
-          <button className={`button ${styles.saveBtn}`} onClick={removeFriend}>
+          <button
+            className={`button ${styles.saveBtn}`}
+            disabled={requesting ? true : false}
+            onClick={removeFriend}
+          >
             {requesting ? "Requesting..." : "Remove Friend"}
           </button>
         ) : (
-          <button className={`button ${styles.saveBtn}`} onClick={addFriend}>
+          <button
+            className={`button ${styles.saveBtn}`}
+            disabled={requesting ? true : false}
+            onClick={addFriend}
+          >
             {requesting ? "Requesting..." : "Add Friend"}
           </button>
         )}
