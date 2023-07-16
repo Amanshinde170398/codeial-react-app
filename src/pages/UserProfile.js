@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/settings.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { Loader } from "../components";
-import { getUserDetails, createFriendship } from "../api";
+import { getUserDetails, createFriendship, removeFriendship } from "../api";
 import toast from "react-hot-toast";
 import { useAuth } from "../hooks";
 
@@ -53,6 +53,21 @@ const UserProfile = () => {
     setRequesting(false);
   };
 
+  const removeFriend = async () => {
+    setRequesting(true);
+    const response = await removeFriendship(userId);
+    if (response.success) {
+      toast.success("Friend remove sucessfuly", {
+        duration: 1000,
+        position: "top-center",
+      });
+      auth.updateUserFriendShip(false, userId);
+    } else {
+      toast.error(response.message, { duration: 1000, position: "top-center" });
+    }
+    setRequesting(false);
+  };
+
   useEffect(() => {
     userDetails(userId);
   }, [userId]);
@@ -79,7 +94,7 @@ const UserProfile = () => {
 
       <div className={styles.btnGrp}>
         {checkIfUserIsAFriend() ? (
-          <button className={`button ${styles.saveBtn}`}>
+          <button className={`button ${styles.saveBtn}`} onClick={removeFriend}>
             {requesting ? "Requesting..." : "Remove Friend"}
           </button>
         ) : (

@@ -93,6 +93,12 @@ export const useProvideAuth = () => {
   const updateUserFriendShip = (friend, friendship) => {
     if (friend) {
       setUser({ ...user, friendships: [...user.friendships, friendship] });
+    } else {
+      // remove friendship
+      let friendships = user.friendships.filter(
+        (friend) => friend.to_user._id != friendship
+      );
+      setUser({ ...user, friendships });
     }
   };
 
