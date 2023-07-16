@@ -82,3 +82,7 @@ export const getUserDetails = (userId) => {
 export const getFriendShips = () => {
   return customFetch(API_URLS.friends(), { method: "GET" });
 };
+
+export const createFriendship = (userId) => {
+  return customFetch(API_URLS.createFriendship(userId), { method: "POST" });
+};
