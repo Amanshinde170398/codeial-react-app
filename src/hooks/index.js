@@ -18,13 +18,24 @@ export const useProvideAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const updateUserOnRefresh = async () => {
     const userToken = getItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
     if (userToken) {
       const user = jwt_decode(userToken);
-      setUser(user);
+      let friendships = [];
+      let resp = await getFriendShips();
+      if (resp.success) {
+        friendships = resp.data.friends;
+      } else {
+        friendships = [];
+      }
+      setUser({ ...user, friendships });
     }
     setLoading(false);
+  };
+
+  useEffect(() => {
+    updateUserOnRefresh();
   }, []);
 
   const login = async (email, password) => {
@@ -79,11 +90,18 @@ export const useProvideAuth = () => {
     }
   };
 
+  const updateUserFriendShip = (friend, friendship) => {
+    if (friend) {
+      setUser({ ...user, friendships: [...user.friendships, friendship] });
+    }
+  };
+
   return {
     user,
     login,
     logout,
     loading,
     updateUser,
+    updateUserFriendShip,
   };
 };

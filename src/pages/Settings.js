@@ -117,9 +117,14 @@ const Settings = () => {
               onClick={updateProfile}
               disabled={savingForm}
             >
-              {savingForm ? "Saviing..." : "Save"}
+              {savingForm ? "Saving..." : "Save"}
             </button>
-            <button className={`button ${styles.goBack}`}>Go Back</button>
+            <button
+              className={`button ${styles.goBack}`}
+              onClick={() => setEditProfile(false)}
+            >
+              Go Back
+            </button>
           </>
         ) : (
           <button
