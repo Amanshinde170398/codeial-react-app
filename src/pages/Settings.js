@@ -22,7 +22,7 @@ const Settings = () => {
     setSavingForm(true);
     let error = false;
     if (!name || !password || !confirmPassword) {
-      toast.error("Please add email, password & confirm password");
+      toast.error("Please add password & confirm password");
       error = true;
     }
     if (confirmPassword != password) {
