@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext, PostContext } from "../providers";
 import { getFriendShips, editProfile, login as userLogin } from "../api";
 import {
   storeItemInLocaStorage,
@@ -9,6 +9,7 @@ import {
 } from "../utils";
 import jwt_decode from "jwt-decode";
 import toast from "react-hot-toast";
+import { getPosts } from "../api";
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -110,5 +111,34 @@ export const useProvideAuth = () => {
     loading,
     updateUser,
     updateUserFriendShip,
+  };
+};
+
+export const usePost = () => {
+  return useContext(PostContext);
+};
+
+export const useProvidePost = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchPost = async () => {
+    let resp = await getPosts();
+    if (resp.success) {
+      setPosts(resp.data.posts);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
+  const addPostToState = () => {};
+
+  return {
+    data: posts,
+    loading,
+    addPostToState,
   };
 };
