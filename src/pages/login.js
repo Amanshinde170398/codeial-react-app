@@ -24,7 +24,10 @@ const Login = () => {
     setLoggingIn(true);
     const response = await auth.login(email, password);
     if (response.success) {
-      toast.success("Loged in successfuly");
+      toast.success("Loged in successfuly", {
+        duration: 4000,
+        position: "top-center",
+      });
       navigate("/");
     } else {
       toast.error("Invalid email/password", {
