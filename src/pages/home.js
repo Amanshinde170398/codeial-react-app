@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "../styles/home.module.css";
-import { Comment, Loader, FriendList } from "../components";
+import { Comment, Loader, FriendList, CreatePost } from "../components";
 import { getPosts } from "../api";
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks";
@@ -10,7 +10,6 @@ const Home = () => {
   const [posts, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
   const auth = useAuth();
-  console.log(auth);
 
   const fetchPost = async () => {
     let resp = await getPosts();
@@ -30,6 +29,7 @@ const Home = () => {
   return (
     <div className={styles.home}>
       <div className={styles.postsList}>
+        {auth.user && <CreatePost />}
         {posts.map((post) => (
           <div className={styles.postWrapper} key={post._id}>
             <div className={styles.postHeader}>
