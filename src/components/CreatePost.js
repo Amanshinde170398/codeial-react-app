@@ -1,11 +1,13 @@
 import { useState } from "react";
 import styles from "../styles/home.module.css";
 import { addPost } from "../api";
+import { usePost } from "../hooks";
 import toast from "react-hot-toast";
 
 const CreatePost = () => {
   const [post, setPost] = useState("");
   const [addingPost, setAddingPost] = useState(false);
+  const posts = usePost();
 
   const handleAddPostClick = async () => {
     if (!post) {
@@ -22,6 +24,7 @@ const CreatePost = () => {
         duration: 4000,
         position: "top-center",
       });
+      posts.addPostToState(response.data.post);
       setPost("");
     } else {
       toast.error(response.message, { duration: 4000, position: "top-center" });
