@@ -13,7 +13,6 @@ const UserProfile = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const auth = useAuth();
-  console.log(auth);
 
   const userDetails = async (userId) => {
     const response = await getUserDetails(userId);
