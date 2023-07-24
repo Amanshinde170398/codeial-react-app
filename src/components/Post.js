@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "../styles/home.module.css";
 import { Comment } from "./index";
 import { useState } from "react";
-import { addComment } from "../api";
+import { addComment, toggleLike } from "../api";
 import { toast } from "react-hot-toast";
 import { useAuth, usePost } from "../hooks";
 
@@ -34,14 +34,26 @@ const Post = ({ post }) => {
     setCommenting(false);
   };
 
+  const handlePostLike = async (e) => {
+    e.preventDefault();
+    const response = await toggleLike(post._id, "Post");
+    if (response.success) {
+      let successMsg = response.data["deleted"]
+        ? "You unlike the Post"
+        : "You liked the post";
+      toast.success(successMsg, {
+        position: "top-center",
+        duration: 4000,
+      });
+    } else {
+      toast.error(response.message, { position: "top-center", duration: 4000 });
+    }
+  };
+
   return (
     <div className={styles.postWrapper} key={post._id}>
       <div className={styles.postHeader}>
         <div className={styles.postAvatar}>
-          {/* <img
-            src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-            alt="user-pic"
-          /> */}
           <svg
             style={{ height: 50 }}
             xmlns="http://www.w3.org/2000/svg"
@@ -109,20 +121,17 @@ const Post = ({ post }) => {
 
         <div className={styles.postActions}>
           <div className={styles.postLike}>
-            {/* <img
-              src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
-              alt="likes-icon"
-            /> */}
-            <i className="fa-regular fa-heart"></i>
+            <button className="toggleLike-btn pointer" onClick={handlePostLike}>
+              <i className="fa-regular fa-heart"></i>
+            </button>
             <span>{post.likes.length}</span>
           </div>
 
           <div className={styles.postCommentsIcon}>
-            {/* <img
-              src="https://image.flaticon.com/icons/svg/1380/1380338.svg"
-              alt="comments-icon"
-            /> */}
-            <i className="fa-sharp fa-regular fa-comment"></i>
+            <button className="toggleLike-btn pointer">
+              <i className="fa-sharp fa-regular fa-comment"></i>
+            </button>
+
             <span>{post.comments.length}</span>
           </div>
         </div>
