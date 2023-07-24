@@ -46,3 +46,13 @@ body {
     -webkit-transform: rotate(360deg);
   }
 }
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.toggleLike-btn {
+  background: inherit;
+  color: inherit;
+  border: none;
+}
