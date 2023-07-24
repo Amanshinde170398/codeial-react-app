@@ -113,3 +113,7 @@ export const toggleLike = (likeableId, likeableType) => {
     method: "POST",
   });
 };
+
+export const searchUsers = (searchText) => {
+  return customFetch(API_URLS.searchUsers(searchText), { method: "GET" });
+};
